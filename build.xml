@@ -27,7 +27,7 @@ Authors:
    $Id$
 
 ==================================================================== -->
-<project default="usage" basedir=".">
+<project default="usage" basedir="." xmlns:artifact="antlib:org.apache.maven.artifact.ant">
 	
   <!-- Xerces Java directories -->
   <property name="build.dir" value="./build"/>
@@ -37,6 +37,14 @@ Authors:
   <property name="src.dir" value="./src"/>
   <property name="tests.dir" value="./tests"/>
   <property name="tools.dir" value="./tools"/>
+
+  <!-- Setup Maven Ant Tasks -->
+  <typedef resource="org/apache/maven/artifact/ant/antlib.xml"
+           uri="antlib:org.apache.maven.artifact.ant">
+      <classpath>
+          <pathelement location="${tools.dir}/bin/maven-ant-tasks-2.1.3.jar"/>
+      </classpath>
+  </typedef>
 
   <!-- enable compilation under JDK 1.4 and above -->
   <taskdef name="xjavac" classname="org.apache.xerces.util.XJavac">
@@ -154,6 +162,7 @@ Authors:
     <echo message=" pack-bin --> generates the binary distributions (zip and tar.gz)"/>
     <echo message=" all      --> generates the binary, source and tools distributions"/>
     <echo message=" deprecatedall --> generates the binary, source and tools distributions with the xerces.jar"/>
+    <echo message=" mvninstall --> installs xercesImpl &amp; all dependeces as mvn artifacts"/>
     <echo message=" test     --> runs a sanity test on the sample files"/>
     <echo message=" clean    --> cleans up all generated files and directories"/>
     <echo message=" usage    --> provides help on using the build tool (default)"/>
@@ -977,6 +986,38 @@ Authors:
     <copy file="${tools.dir}/${jar.psychopath}" tofile="${build.dir}/${jar.psychopath}"/>
     <!-- include the Java Cup Runtime -->
     <copy file="${tools.dir}/${jar.cup}" tofile="${build.dir}/${jar.cup}"/>
+  </target>
+
+  <!-- =================================================================== -->
+  <!-- Installs xecresImpl and dependeces as mvn artifacts                 -->
+  <!-- =================================================================== -->
+  <target name="mvninstall" depends="jars">
+      <artifact:pom id="xercesImpl" file="poms/xercesImpl.pom.xml"/>
+      <artifact:pom id="icu4j" file="poms/icu4j.pom.xml"/>
+      <artifact:pom id="javaCup" file="poms/java-cup.pom.xml"/>
+      <artifact:pom id="xmlResolver" file="poms/xml-resolver.pom.xml"/>
+      <artifact:pom id="xalanSerializer" file="poms/xalan-serializer.pom.xml"/>
+      <artifact:pom id="psychopath" file="poms/psychopath.pom.xml"/>
+
+
+      <artifact:install file="${build.dir}/${jar.parser}">
+          <pom refid="xercesImpl"/>
+      </artifact:install>
+      <artifact:install file="${build.dir}/${jar.charnormalizer}">
+          <pom refid="icu4j"/>
+      </artifact:install>
+      <artifact:install file="${build.dir}/${jar.cup}">
+          <pom refid="javaCup"/>
+      </artifact:install>
+      <artifact:install file="${build.dir}/${jar.resolver}">
+          <pom refid="xmlResolver"/>
+      </artifact:install>
+      <artifact:install file="${build.dir}/${jar.serializer}">
+          <pom refid="xalanSerializer"/>
+      </artifact:install>
+      <artifact:install file="${tools.dir}/${jar.psychopath}">
+          <pom refid="psychopath"/>
+      </artifact:install>
   </target>
 
   <!-- =================================================================== -->
