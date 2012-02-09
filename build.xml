@@ -993,6 +993,7 @@ Authors:
   <!-- =================================================================== -->
   <target name="mvninstall" depends="jars">
       <artifact:pom id="xercesImpl" file="poms/xercesImpl.pom.xml"/>
+      <artifact:pom id="xmlApis" file="poms/xml-apis.pom.xml"/>
       <artifact:pom id="icu4j" file="poms/icu4j.pom.xml"/>
       <artifact:pom id="javaCup" file="poms/java-cup.pom.xml"/>
       <artifact:pom id="xmlResolver" file="poms/xml-resolver.pom.xml"/>
@@ -1002,6 +1003,9 @@ Authors:
 
       <artifact:install file="${build.dir}/${jar.parser}">
           <pom refid="xercesImpl"/>
+      </artifact:install>
+      <artifact:install file="${build.dir}/${jar.apis}">
+          <pom refid="xmlApis"/>
       </artifact:install>
       <artifact:install file="${build.dir}/${jar.charnormalizer}">
           <pom refid="icu4j"/>
