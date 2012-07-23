@@ -991,16 +991,15 @@ Authors:
   <!-- =================================================================== -->
   <!-- Installs xecresImpl and dependeces as mvn artifacts                 -->
   <!-- =================================================================== -->
+  <artifact:pom id="xercesImpl" file="poms/xercesImpl.pom.xml"/>
+  <artifact:pom id="xmlApis" file="poms/xml-apis.pom.xml"/>
+  <artifact:pom id="icu4j" file="poms/icu4j.pom.xml"/>
+  <artifact:pom id="javaCup" file="poms/java-cup.pom.xml"/>
+  <artifact:pom id="xmlResolver" file="poms/xml-resolver.pom.xml"/>
+  <artifact:pom id="xalanSerializer" file="poms/xalan-serializer.pom.xml"/>
+  <artifact:pom id="psychopath" file="poms/psychopath.pom.xml"/>
+
   <target name="mvninstall" depends="jars">
-      <artifact:pom id="xercesImpl" file="poms/xercesImpl.pom.xml"/>
-      <artifact:pom id="xmlApis" file="poms/xml-apis.pom.xml"/>
-      <artifact:pom id="icu4j" file="poms/icu4j.pom.xml"/>
-      <artifact:pom id="javaCup" file="poms/java-cup.pom.xml"/>
-      <artifact:pom id="xmlResolver" file="poms/xml-resolver.pom.xml"/>
-      <artifact:pom id="xalanSerializer" file="poms/xalan-serializer.pom.xml"/>
-      <artifact:pom id="psychopath" file="poms/psychopath.pom.xml"/>
-
-
       <artifact:install file="${build.dir}/${jar.parser}">
           <pom refid="xercesImpl"/>
       </artifact:install>
