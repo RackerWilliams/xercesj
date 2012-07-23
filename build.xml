@@ -163,6 +163,7 @@ Authors:
     <echo message=" all      --> generates the binary, source and tools distributions"/>
     <echo message=" deprecatedall --> generates the binary, source and tools distributions with the xerces.jar"/>
     <echo message=" mvninstall --> installs xercesImpl &amp; all dependeces as mvn artifacts"/>
+    <echo message=" mvndeploy --> deploys xercesImpl &amp; all dependeces as mvn artifacts"/>
     <echo message=" test     --> runs a sanity test on the sample files"/>
     <echo message=" clean    --> cleans up all generated files and directories"/>
     <echo message=" usage    --> provides help on using the build tool (default)"/>
@@ -991,6 +992,8 @@ Authors:
   <!-- =================================================================== -->
   <!-- Installs xecresImpl and dependeces as mvn artifacts                 -->
   <!-- =================================================================== -->
+  <artifact:install-provider artifactId="wagon-http" version="1.0-beta-2"/>
+
   <artifact:pom id="xercesImpl" file="poms/xercesImpl.pom.xml"/>
   <artifact:pom id="xmlApis" file="poms/xml-apis.pom.xml"/>
   <artifact:pom id="icu4j" file="poms/icu4j.pom.xml"/>
@@ -1021,6 +1024,37 @@ Authors:
       <artifact:install file="${tools.dir}/${jar.psychopath}">
           <pom refid="psychopath"/>
       </artifact:install>
+  </target>
+
+  <target name="mvndeploy" depends="mvninstall">
+      <artifact:deploy file="${build.dir}/${jar.parser}">
+          <remoteRepository id="snapshots.maven.research.rackspace.com" url="http://maven.research.rackspacecloud.com/content/repositories/snapshots"/>
+          <pom refid="xercesImpl"/>
+      </artifact:deploy>
+      <artifact:deploy file="${tools.dir}/${jar.psychopath}">
+          <remoteRepository id="third-party.maven.research.rackspace.com" url="http://maven.research.rackspacecloud.com/content/repositories/third-party"/>
+          <pom refid="psychopath"/>
+      </artifact:deploy>
+      <artifact:deploy file="${build.dir}/${jar.apis}">
+          <remoteRepository id="third-party.maven.research.rackspace.com" url="http://maven.research.rackspacecloud.com/content/repositories/third-party"/>
+          <pom refid="xmlApis"/>
+      </artifact:deploy>
+      <artifact:deploy file="${build.dir}/${jar.charnormalizer}">
+          <remoteRepository id="third-party.maven.research.rackspace.com" url="http://maven.research.rackspacecloud.com/content/repositories/third-party"/>
+          <pom refid="icu4j"/>
+      </artifact:deploy>
+      <artifact:deploy file="${build.dir}/${jar.cup}">
+          <remoteRepository id="third-party.maven.research.rackspace.com" url="http://maven.research.rackspacecloud.com/content/repositories/third-party"/>
+          <pom refid="javaCup"/>
+      </artifact:deploy>
+      <artifact:deploy file="${build.dir}/${jar.resolver}">
+          <remoteRepository id="third-party.maven.research.rackspace.com" url="http://maven.research.rackspacecloud.com/content/repositories/third-party"/>
+          <pom refid="xmlResolver"/>
+      </artifact:deploy>
+      <artifact:deploy file="${build.dir}/${jar.serializer}">
+          <remoteRepository id="third-party.maven.research.rackspace.com" url="http://maven.research.rackspacecloud.com/content/repositories/third-party"/>
+          <pom refid="xalanSerializer"/>
+      </artifact:deploy>
   </target>
 
   <!-- =================================================================== -->
