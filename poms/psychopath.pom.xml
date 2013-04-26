@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.eclipse.wst.xml.xpath2</groupId>
     <artifactId>org.eclipse.wst.xml.xpath2.processor</artifactId>
-    <version>1.2.1-rax-SNAPSHOT</version>
+    <version>1.2.1-rax</version>
     <packaging>jar</packaging>
 
     <dependencies>
@@ -21,7 +21,7 @@
         <dependency>
             <groupId>xerces</groupId>
             <artifactId>xerces-xsd11</artifactId>
-            <version>2.12.1-rax-SNAPSHOT</version>
+            <version>2.12.1-rax</version>
         </dependency>
     </dependencies>
 </project>

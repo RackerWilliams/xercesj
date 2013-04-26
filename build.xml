@@ -1028,11 +1028,11 @@ Authors:
 
   <target name="mvndeploy" depends="mvninstall">
       <artifact:deploy file="${build.dir}/${jar.parser}">
-          <remoteRepository id="snapshots.maven.research.rackspace.com" url="http://maven.research.rackspacecloud.com/content/repositories/snapshots"/>
+          <remoteRepository id="snapshots.maven.research.rackspace.com" url="http://maven.research.rackspacecloud.com/content/repositories/third-party"/>
           <pom refid="xercesImpl"/>
       </artifact:deploy>
       <artifact:deploy file="${tools.dir}/${jar.psychopath}">
-          <remoteRepository id="snapshots.maven.research.rackspace.com" url="http://maven.research.rackspacecloud.com/content/repositories/snapshots"/>
+          <remoteRepository id="snapshots.maven.research.rackspace.com" url="http://maven.research.rackspacecloud.com/content/repositories/third-party"/>
           <pom refid="psychopath"/>
       </artifact:deploy>
       <artifact:deploy file="${build.dir}/${jar.apis}">
